@@ -24,13 +24,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ufaz.az.meezer.ui.dataitemtype.DataItemTypeScreen
+import ufaz.az.meezer.ui.search.Screen
+import ufaz.az.meezer.ui.search.SearchScreen
 
 @Composable
 fun MainNavigation() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "main") {
-        composable("main") { DataItemTypeScreen(modifier = Modifier.padding(16.dp)) }
-        // TODO: Add more destinations
+    NavHost(navController = navController, startDestination = Screen.Search.route) {
+        composable(Screen.Search.route) {
+            SearchScreen() // This will be a simple placeholder for now.
+        }
     }
 }
