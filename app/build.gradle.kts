@@ -96,6 +96,8 @@ dependencies {
     // Gson
     implementation(libs.gson)
 
+    implementation (libs.exoplayer)
+
     // Hilt Dependency Injection
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)

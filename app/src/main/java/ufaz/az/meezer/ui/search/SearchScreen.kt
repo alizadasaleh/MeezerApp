@@ -1,5 +1,6 @@
 package ufaz.az.meezer.ui.search
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -98,9 +99,11 @@ fun SearchScreen(navController: NavHostController, viewModel: SearchViewModel = 
             items(searchResults) { result ->
                 SearchResultItem(result) {
                     // Navigate to details screen
-                    navController.navigate(
-                        "details/${result.title}/${result.artist.name}/${result.album.title}"
-                    )
+                    navController.navigate("detail/${result.id}"){
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+
                 }
             }
         }

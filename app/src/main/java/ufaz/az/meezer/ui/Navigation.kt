@@ -32,12 +32,7 @@ fun MainNavigation() {
         composable(Screen.Search.route) {
             SearchScreen(navController) // This will be a simple placeholder for now.
         }
-        composable("details/{title}/{artist}/{album}") { backStackEntry ->
-            val title = backStackEntry.arguments?.getString("title")
-            val artist = backStackEntry.arguments?.getString("artist")
-            val album = backStackEntry.arguments?.getString("album")
 
-            DetailsScreen(title = title, artist = artist, album = album)
-        }
+
     }
 }
