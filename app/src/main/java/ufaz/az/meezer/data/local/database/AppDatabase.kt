@@ -18,8 +18,11 @@ package ufaz.az.meezer.data.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import ufaz.az.meezer.data.model.Playlist
+import ufaz.az.meezer.data.model.PlaylistTrack
+import ufaz.az.meezer.data.repository.PlaylistDao
 
-@Database(entities = [DataItemType::class], version = 1)
+@Database(entities = [Playlist::class, PlaylistTrack::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun dataItemTypeDao(): DataItemTypeDao
+    abstract fun playlistDao(): PlaylistDao
 }

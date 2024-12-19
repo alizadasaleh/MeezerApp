@@ -10,7 +10,6 @@ import androidx.navigation.compose.rememberNavController
 import ufaz.az.meezer.ui.detail.DetailsScreen
 import ufaz.az.meezer.ui.playlist.PlaylistScreen
 import ufaz.az.meezer.ui.quiz.QuizScreen
-import ufaz.az.meezer.ui.search.Screen
 import ufaz.az.meezer.ui.search.SearchScreen
 
 @Composable
@@ -28,7 +27,14 @@ fun MainScreen() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Playlist.route) {
-                PlaylistScreen()
+                PlaylistScreen(
+                    onTrackClick = { trackId ->
+                        navController.navigate("detail/$trackId") {
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                )
             }
             composable(Screen.Search.route) {
                 SearchScreen(navController)

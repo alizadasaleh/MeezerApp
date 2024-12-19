@@ -13,17 +13,21 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,15 +36,39 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.launch
 import ufaz.az.meezer.data.api.SearchResult
+import ufaz.az.meezer.data.model.Playlist
+import ufaz.az.meezer.ui.playlist.PlaylistViewModel
 
 @Composable
-fun SearchScreen(navController: NavHostController, viewModel: SearchViewModel = hiltViewModel()) {
+fun SearchScreen(navController: NavHostController, searchViewModel: SearchViewModel = hiltViewModel(), playlistViewModel: PlaylistViewModel = hiltViewModel()) {
+    val searchResults by searchViewModel.searchResults.collectAsState()
+    val playlists by playlistViewModel.playlists.collectAsState(initial = emptyList())
     val viewModel: SearchViewModel = viewModel()
-    val searchResults by viewModel.searchResults.collectAsState()
-
+    val coroutineScope = rememberCoroutineScope() // Scope for the SearchScreen
     var query by remember { mutableStateOf("") }
     var isSearchingForTracks by remember { mutableStateOf(true) }
+    var showDialog by remember { mutableStateOf(false) }
+    var selectedResult by remember { mutableStateOf<SearchResult?>(null) }
+
+
+    if (showDialog && selectedResult != null) {
+        AddToPlaylistDialog(
+            onDismissRequest = { showDialog = false },
+            onConfirm = { playlistId ->
+                selectedResult?.let { result ->
+                    selectedResult?.let { result ->
+                        coroutineScope.launch { // Launch a coroutine in the *SearchScreen's* scope
+                            playlistViewModel.addTrackToPlaylist(playlistId, result)
+                            showDialog = false // Dismiss the dialog *after* the operation completes
+                        }
+                    }
+                }
+            },
+            playlists = playlists
+        )
+    }
 
     Column(
 
@@ -112,21 +140,22 @@ fun SearchScreen(navController: NavHostController, viewModel: SearchViewModel = 
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(searchResults) { result ->
-                SearchResultItem(result) {
-                    // Navigate to details screen
+                SearchResultItem(result, onClick = {
                     navController.navigate("detail/${result.id}") {
                         launchSingleTop = true
                         restoreState = true
                     }
-
-                }
+                }, onAddToPlaylist = {
+                    selectedResult = result
+                    showDialog = true
+                })
             }
         }
     }
 }
 
 @Composable
-fun SearchResultItem(result: SearchResult, onClick: () -> Unit) {
+fun SearchResultItem(result: SearchResult, onClick: () -> Unit, onAddToPlaylist: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -136,13 +165,8 @@ fun SearchResultItem(result: SearchResult, onClick: () -> Unit) {
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = result.title, style = MaterialTheme.typography.titleMedium)
-            Text(
-                text = "Artist: ${result.artist.name}",
-                style = MaterialTheme.typography.bodyMedium
-            )
+            Text(text = "Artist: ${result.artist.name}", style = MaterialTheme.typography.bodyMedium)
             Text(text = "Album: ${result.album.title}", style = MaterialTheme.typography.bodySmall)
-
-            // Display optional fields
             result.release_date?.let {
                 Text(text = "Release Date: $it", style = MaterialTheme.typography.bodySmall)
             }
@@ -152,6 +176,59 @@ fun SearchResultItem(result: SearchResult, onClick: () -> Unit) {
                     style = MaterialTheme.typography.bodySmall
                 )
             }
+            Button(onClick = onAddToPlaylist) {
+                Text("Add to Playlist")
+            }
         }
     }
+}
+
+@Composable
+fun AddToPlaylistDialog(
+    onDismissRequest: () -> Unit,
+    onConfirm: (Long) -> Unit,
+    playlists: List<Playlist>
+) {
+    var selectedPlaylistId by remember { mutableStateOf<Long?>(null) }
+
+    AlertDialog(
+        onDismissRequest = onDismissRequest,
+        title = { Text("Add to Playlist") },
+        text = {
+            Column {
+                playlists.forEach { playlist ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { selectedPlaylistId = playlist.id },
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        RadioButton(
+                            selected = selectedPlaylistId == playlist.id,
+                            onClick = { selectedPlaylistId = playlist.id }
+                        )
+                        Text(text = playlist.name)
+                    }
+                }
+                if (playlists.isEmpty()) {
+                    Text("No playlists available. Create one first.")
+                }
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    selectedPlaylistId?.let { onConfirm(it) }
+                },
+                enabled = selectedPlaylistId != null
+            ) {
+                Text("Add")
+            }
+        },
+        dismissButton = {
+            Button(onClick = onDismissRequest) {
+                Text("Cancel")
+            }
+        }
+    )
 }

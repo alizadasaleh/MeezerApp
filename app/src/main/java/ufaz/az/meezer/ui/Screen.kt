@@ -1,4 +1,4 @@
-package ufaz.az.meezer.ui.search
+package ufaz.az.meezer.ui
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
