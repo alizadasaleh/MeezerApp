@@ -49,7 +49,10 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
@@ -96,7 +99,7 @@ dependencies {
     // Gson
     implementation(libs.gson)
 
-    implementation (libs.exoplayer)
+    implementation(libs.exoplayer)
 
     // Hilt Dependency Injection
     implementation(libs.hilt.android)

@@ -37,7 +37,8 @@ fun MainScreen() {
                 QuizScreen()
             }
             composable(Screen.Detail.route) { backStackEntry ->
-                val trackId = backStackEntry.arguments?.getString("trackId") // Pass the unique Deezer track ID
+                val trackId =
+                    backStackEntry.arguments?.getString("trackId") // Pass the unique Deezer track ID
                 DetailsScreen(trackId = trackId)
             }
 

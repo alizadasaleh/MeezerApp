@@ -16,7 +16,6 @@
 
 package ufaz.az.meezer.ui.dataitemtype
 
-import ufaz.az.meezer.ui.theme.MyApplicationTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,9 +35,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import ufaz.az.meezer.ui.theme.MyApplicationTheme
 
 @Composable
-fun DataItemTypeScreen(modifier: Modifier = Modifier, viewModel: DataItemTypeViewModel = hiltViewModel()) {
+fun DataItemTypeScreen(
+    modifier: Modifier = Modifier,
+    viewModel: DataItemTypeViewModel = hiltViewModel()
+) {
     val items by viewModel.uiState.collectAsStateWithLifecycle()
     if (items is DataItemTypeUiState.Success) {
         DataItemTypeScreen(
@@ -58,7 +61,9 @@ internal fun DataItemTypeScreen(
     Column(modifier) {
         var nameDataItemType by remember { mutableStateOf("Compose") }
         Row(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             TextField(

@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import ufaz.az.meezer.ui.detail.DetailsScreen
 import ufaz.az.meezer.ui.search.Screen
 import ufaz.az.meezer.ui.search.SearchScreen
 

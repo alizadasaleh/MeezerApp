@@ -28,7 +28,6 @@ fun BottomNavigationBar(navController: NavHostController) {
                 onClick = {
                     if (currentRoute != screen.route) {
                         navController.navigate(screen.route) {
-                            // Avoid creating multiple instances of the same screen
                             popUpTo(navController.graph.startDestinationId) { saveState = true }
                             launchSingleTop = true
                             restoreState = true

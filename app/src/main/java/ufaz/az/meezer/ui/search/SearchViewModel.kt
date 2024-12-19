@@ -20,7 +20,7 @@ class SearchViewModel @Inject constructor(
 
     fun search(query: String, isTrackSearch: Boolean) {
         val type = if (isTrackSearch) "track" else "album"
-        var queryy = type+":"+"\""+query+"\""
+        var queryy = type + ":" + "\"" + query + "\""
         viewModelScope.launch {
             try {
                 val response = deezerApiService.search(queryy)
@@ -32,7 +32,7 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun searchForTracks(query: String){
+    fun searchForTracks(query: String) {
 
     }
 }
