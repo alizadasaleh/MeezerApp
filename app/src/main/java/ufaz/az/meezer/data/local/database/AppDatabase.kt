@@ -20,9 +20,13 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import ufaz.az.meezer.data.model.Playlist
 import ufaz.az.meezer.data.model.PlaylistTrack
+import ufaz.az.meezer.data.model.Quiz
 import ufaz.az.meezer.data.repository.PlaylistDao
+import ufaz.az.meezer.data.repository.QuizDao
 
-@Database(entities = [Playlist::class, PlaylistTrack::class], version = 1)
+@Database(entities = [Playlist::class, PlaylistTrack::class, Quiz::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun playlistDao(): PlaylistDao
+    abstract fun quizDao(): QuizDao
+
 }

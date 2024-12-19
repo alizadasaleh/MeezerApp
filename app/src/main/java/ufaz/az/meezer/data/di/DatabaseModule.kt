@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ufaz.az.meezer.data.local.database.AppDatabase
 import ufaz.az.meezer.data.repository.PlaylistDao
+import ufaz.az.meezer.data.repository.QuizDao
 import javax.inject.Singleton
 
 @Module
@@ -28,5 +29,11 @@ object DatabaseModule {
     @Singleton
     fun providePlaylistDao(database: AppDatabase): PlaylistDao {
         return database.playlistDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideQuizDao(database: AppDatabase): QuizDao {
+        return database.quizDao()
     }
 }

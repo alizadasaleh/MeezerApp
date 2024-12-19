@@ -40,7 +40,11 @@ fun MainScreen() {
                 SearchScreen(navController)
             }
             composable(Screen.Quiz.route) {
-                QuizScreen()
+                QuizScreen(onQuizClick = { quiz ->
+                    // Handle quiz click action here
+                    // For example, navigate to quiz details or show a toast
+                    navController.navigate("quizDetail/${quiz.id}")
+                })
             }
             composable(Screen.Detail.route) { backStackEntry ->
                 val trackId =
