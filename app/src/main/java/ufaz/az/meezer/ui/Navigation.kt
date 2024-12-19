@@ -24,6 +24,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ufaz.az.meezer.ui.dataitemtype.DataItemTypeScreen
+import ufaz.az.meezer.ui.detail.DetailsScreen
 import ufaz.az.meezer.ui.search.Screen
 import ufaz.az.meezer.ui.search.SearchScreen
 
@@ -33,7 +34,14 @@ fun MainNavigation() {
 
     NavHost(navController = navController, startDestination = Screen.Search.route) {
         composable(Screen.Search.route) {
-            SearchScreen() // This will be a simple placeholder for now.
+            SearchScreen(navController) // This will be a simple placeholder for now.
+        }
+        composable("details/{title}/{artist}/{album}") { backStackEntry ->
+            val title = backStackEntry.arguments?.getString("title")
+            val artist = backStackEntry.arguments?.getString("artist")
+            val album = backStackEntry.arguments?.getString("album")
+
+            DetailsScreen(title = title, artist = artist, album = album)
         }
     }
 }
