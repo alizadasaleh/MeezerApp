@@ -123,6 +123,14 @@ fun SearchResultItem(result: SearchResult, onClick: () -> Unit) {
             Text(text = result.title, style = MaterialTheme.typography.titleMedium)
             Text(text = "Artist: ${result.artist.name}", style = MaterialTheme.typography.bodyMedium)
             Text(text = "Album: ${result.album.title}", style = MaterialTheme.typography.bodySmall)
+
+            // Display optional fields
+            result.release_date?.let {
+                Text(text = "Release Date: $it", style = MaterialTheme.typography.bodySmall)
+            }
+            result.explicit_lyrics?.let {
+                Text(text = "Explicit Lyrics: ${if (it) "Yes" else "No"}", style = MaterialTheme.typography.bodySmall)
+            }
         }
     }
 }

@@ -1,9 +1,7 @@
 package ufaz.az.meezer.data.api
 
 data class SearchResponse(
-    val data: List<SearchResult>,
-    val total: Int,
-    val next: String?
+    val data: List<SearchResult>
 )
 
 data class SearchResult(
@@ -11,16 +9,10 @@ data class SearchResult(
     val title: String,
     val artist: Artist,
     val album: Album,
-    val duration: Int
+    val preview: String?,
+    val duration: Int?,
+    val release_date: String?,
+    val explicit_lyrics: Boolean?,
+    val link: String?
 )
 
-data class Artist(
-    val id: String,
-    val name: String
-)
-
-data class Album(
-    val id: String,
-    val title: String,
-    val cover_medium: String
-)

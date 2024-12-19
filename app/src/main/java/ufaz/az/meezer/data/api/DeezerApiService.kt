@@ -13,12 +13,6 @@ interface DeezerApiService {
 
     @GET("track/{trackId}")
     suspend fun getTrackDetails(@Path("trackId") trackId: String): TrackDetailsResponse
-
 }
 
-data class TrackDetailsResponse(
-    val title: String,
-    val artist: Artist,
-    val album: Album,
-    val preview: String
-)
+
