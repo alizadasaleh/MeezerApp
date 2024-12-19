@@ -1,6 +1,8 @@
 package ufaz.az.meezer.ui.search
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,18 +13,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import ufaz.az.meezer.ui.search.SearchViewModel
+import ufaz.az.meezer.data.api.SearchResult
+
+import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun SearchScreen(modifier: Modifier = Modifier) {
+fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
     val viewModel: SearchViewModel = viewModel()
+    val searchResults by viewModel.searchResults.collectAsState()
 
-    // States for UI inputs
     var query by remember { mutableStateOf("") }
-    var isSearchingForTracks by remember { mutableStateOf(true) } // Toggle: Tracks or Albums
+    var isSearchingForTracks by remember { mutableStateOf(true) }
 
     Column(
-        modifier = modifier.fillMaxSize().padding(16.dp),
+
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -53,10 +58,16 @@ fun SearchScreen(modifier: Modifier = Modifier) {
 
         // Toggle Buttons for Search Type
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(onClick = { isSearchingForTracks = true }) {
+            Button(
+                onClick = { viewModel.search(query, true) },
+                enabled = query.isNotEmpty()
+            ) {
                 Text("Search Tracks")
             }
-            Button(onClick = { isSearchingForTracks = false }) {
+            Button(
+                onClick = { viewModel.search(query, false) },
+                enabled = query.isNotEmpty()
+            ) {
                 Text("Search Albums")
             }
         }
@@ -75,5 +86,30 @@ fun SearchScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.align(Alignment.CenterHorizontally),
             style = MaterialTheme.typography.bodyMedium
         )
+        // Search bar and buttons (same as before)
+
+        // Display results
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(searchResults) { result ->
+                SearchResultItem(result)
+            }
+        }
+    }
+}
+
+@Composable
+fun SearchResultItem(result: SearchResult) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(4.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = result.title, style = MaterialTheme.typography.titleMedium)
+            Text(text = "Artist: ${result.artist.name}", style = MaterialTheme.typography.bodyMedium)
+            Text(text = "Album: ${result.album.title}", style = MaterialTheme.typography.bodySmall)
+        }
     }
 }

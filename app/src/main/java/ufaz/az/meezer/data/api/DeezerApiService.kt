@@ -7,7 +7,6 @@ interface DeezerApiService {
 
     @GET("search")
     suspend fun search(
-        @Query("q") query: String,
-        @Query("type") type: String
+        @Query("q") query: String
     ): SearchResponse
 }
