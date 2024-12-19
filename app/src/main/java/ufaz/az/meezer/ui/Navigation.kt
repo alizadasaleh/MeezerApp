@@ -16,14 +16,11 @@
 
 package ufaz.az.meezer.ui
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import ufaz.az.meezer.ui.dataitemtype.DataItemTypeScreen
+import ufaz.az.meezer.ui.detail.DetailsScreen
 import ufaz.az.meezer.ui.search.Screen
 import ufaz.az.meezer.ui.search.SearchScreen
 
@@ -33,7 +30,9 @@ fun MainNavigation() {
 
     NavHost(navController = navController, startDestination = Screen.Search.route) {
         composable(Screen.Search.route) {
-            SearchScreen() // This will be a simple placeholder for now.
+            SearchScreen(navController) // This will be a simple placeholder for now.
         }
+
+
     }
 }

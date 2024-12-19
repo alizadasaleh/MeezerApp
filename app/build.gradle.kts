@@ -96,6 +96,8 @@ dependencies {
     // Gson
     implementation(libs.gson)
 
+    implementation (libs.exoplayer)
+
     // Hilt Dependency Injection
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
@@ -114,6 +116,9 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+
+    implementation(libs.coil.compose) // Latest version of Coil
+
 
     // Compose
     implementation(libs.androidx.compose.ui)

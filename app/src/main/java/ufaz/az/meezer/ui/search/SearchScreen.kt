@@ -1,5 +1,7 @@
 package ufaz.az.meezer.ui.search
 
+import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,9 +19,10 @@ import ufaz.az.meezer.data.api.SearchResult
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 
 @Composable
-fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
+fun SearchScreen(navController: NavHostController, viewModel: SearchViewModel = hiltViewModel()) {
     val viewModel: SearchViewModel = viewModel()
     val searchResults by viewModel.searchResults.collectAsState()
 
@@ -94,22 +97,40 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(searchResults) { result ->
-                SearchResultItem(result)
+                SearchResultItem(result) {
+                    // Navigate to details screen
+                    navController.navigate("detail/${result.id}"){
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+
+                }
             }
         }
     }
 }
 
 @Composable
-fun SearchResultItem(result: SearchResult) {
+fun SearchResultItem(result: SearchResult, onClick: () -> Unit) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .clickable { onClick() },
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = result.title, style = MaterialTheme.typography.titleMedium)
             Text(text = "Artist: ${result.artist.name}", style = MaterialTheme.typography.bodyMedium)
             Text(text = "Album: ${result.album.title}", style = MaterialTheme.typography.bodySmall)
+
+            // Display optional fields
+            result.release_date?.let {
+                Text(text = "Release Date: $it", style = MaterialTheme.typography.bodySmall)
+            }
+            result.explicit_lyrics?.let {
+                Text(text = "Explicit Lyrics: ${if (it) "Yes" else "No"}", style = MaterialTheme.typography.bodySmall)
+            }
         }
     }
 }
