@@ -16,13 +16,35 @@
 
 package ufaz.az.meezer.data.local.database
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import ufaz.az.meezer.data.model.Playlist
 import ufaz.az.meezer.data.model.PlaylistTrack
+import ufaz.az.meezer.data.model.Quiz
 import ufaz.az.meezer.data.repository.PlaylistDao
+import ufaz.az.meezer.data.repository.QuizDao
 
-@Database(entities = [Playlist::class, PlaylistTrack::class], version = 1)
+@Database(entities = [Playlist::class, PlaylistTrack::class,Quiz::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
+    abstract fun quizDao(): QuizDao
     abstract fun playlistDao(): PlaylistDao
+
+    companion object {
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+
+        fun getInstance(context: Context): AppDatabase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "meezer_database"
+                ).build()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
 }

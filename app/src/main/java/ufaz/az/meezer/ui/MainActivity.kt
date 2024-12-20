@@ -19,15 +19,21 @@ package ufaz.az.meezer.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.ui.platform.ComposeView
+import androidx.fragment.app.FragmentActivity
 import dagger.hilt.android.AndroidEntryPoint
+import ufaz.az.meezer.R
 import ufaz.az.meezer.ui.theme.MyApplicationTheme
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
-    //test
+class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
+        setContentView(R.layout.activity_main) // Ensure the correct layout is set
+
+        // Set the Compose content
+        val composeView = findViewById<ComposeView>(R.id.compose_view)
+        composeView.setContent {
             MyApplicationTheme {
                 MainScreen()
             }
