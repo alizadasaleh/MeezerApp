@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ufaz.az.meezer.ui.detail.DetailsScreen
 import ufaz.az.meezer.ui.playlist.PlaylistScreen
+import ufaz.az.meezer.ui.quiz.QuizListFragment
 import ufaz.az.meezer.ui.quiz.QuizScreen
 import ufaz.az.meezer.ui.search.SearchScreen
 
@@ -41,6 +42,9 @@ fun MainScreen() {
             }
             composable(Screen.Quiz.route) {
                 QuizScreen()
+            }
+            composable("quizFragment") {
+                QuizListFragment() // This fragment will be shown
             }
             composable(Screen.Detail.route) { backStackEntry ->
                 val trackId =
