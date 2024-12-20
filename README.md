@@ -11,6 +11,18 @@ The Meezer app is a music search and playlist management application that enhanc
 - **Playlist Management**: Users can create and manage playlists by adding or removing tracks as needed.
 - **Playback**: The app allows users to play previews of tracks directly within the application.
 
+## Screenshots
+![Search Screen Screenshot](screenshots/SearchNotTyped.png)
+![Search Screen Screenshot](screenshots/SearchTypedScreen.png)
+![Search Screen Screenshot](screenshots/SearchResultScreenShot.png)
+![Search Screen Screenshot](screenshots/AddToPlaylist.png)
+![Search Screen Screenshot](screenshots/AddToPlaylistSelected.png)
+![Search Screen Screenshot](screenshots/TrackDetails.png)
+![Search Screen Screenshot](screenshots/PlaylistScreen.png)
+![Search Screen Screenshot](screenshots/CreatePlaylist.png)
+
+
+
 ## App Architecture
 
 The architecture of the Meezer app is designed to promote scalability, maintainability, and testability, adhering to best practices outlined in the Android documentation. By implementing a **Model-View-ViewModel (MVVM)** pattern, we effectively separate the user interface from the business logic. This separation of concerns ensures that our UI components remain lightweight and focused solely on rendering data and handling user interactions, while the ViewModels manage the application state and business logic. This approach aligns with the principles described in the [Android architecture guidelines](https://developer.android.com/topic/architecture), which emphasize minimizing dependencies on UI components and managing data through persistent models to enhance robustness and testability.
