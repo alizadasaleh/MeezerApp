@@ -2,7 +2,6 @@ package ufaz.az.meezer.ui.playlist
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
@@ -10,6 +9,7 @@ import ufaz.az.meezer.data.api.SearchResult
 import ufaz.az.meezer.data.model.Playlist
 import ufaz.az.meezer.data.model.PlaylistTrack
 import ufaz.az.meezer.data.repository.PlaylistDao
+import javax.inject.Inject
 
 @HiltViewModel
 class PlaylistViewModel @Inject constructor(

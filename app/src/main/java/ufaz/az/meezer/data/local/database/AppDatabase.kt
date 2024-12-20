@@ -26,7 +26,7 @@ import ufaz.az.meezer.data.model.Quiz
 import ufaz.az.meezer.data.repository.PlaylistDao
 import ufaz.az.meezer.data.repository.QuizDao
 
-@Database(entities = [Playlist::class, PlaylistTrack::class,Quiz::class], version = 1)
+@Database(entities = [Playlist::class, PlaylistTrack::class, Quiz::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun quizDao(): QuizDao
     abstract fun playlistDao(): PlaylistDao

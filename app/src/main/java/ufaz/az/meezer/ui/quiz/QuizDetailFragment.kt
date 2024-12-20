@@ -14,9 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ufaz.az.meezer.R
 import ufaz.az.meezer.data.local.database.AppDatabase
-import ufaz.az.meezer.data.model.Quiz
 import ufaz.az.meezer.data.repository.QuizDao
-import javax.inject.Inject
 
 class QuizDetailsFragment : Fragment() {
     private lateinit var quizDao: QuizDao
@@ -63,6 +61,7 @@ class QuizDetailsFragment : Fragment() {
 
         return view
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         val frameLayout = activity?.findViewById<FrameLayout>(R.id.fragment_container)

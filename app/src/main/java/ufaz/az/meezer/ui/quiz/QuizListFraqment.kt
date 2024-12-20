@@ -5,20 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ListView
-import androidx.navigation.Navigation.findNavController
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import ufaz.az.meezer.R
 import ufaz.az.meezer.data.local.database.AppDatabase
 import ufaz.az.meezer.data.model.Quiz
 import ufaz.az.meezer.data.repository.QuizDao
-import ufaz.az.meezer.ui.MainActivity
-import javax.inject.Inject
 
 class QuizListFragment : Fragment() {
     private lateinit var quizDao: QuizDao
@@ -36,10 +32,12 @@ class QuizListFragment : Fragment() {
         if (frameLayout != null) {
             frameLayout.visibility = View.VISIBLE
         }
-        val appDatabase = AppDatabase.getInstance(requireContext()) // Add this method in AppDatabase
+        val appDatabase =
+            AppDatabase.getInstance(requireContext()) // Add this method in AppDatabase
         quizDao = appDatabase.quizDao()
 
-        quizAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, mutableListOf())
+        quizAdapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, mutableListOf())
         listView.adapter = quizAdapter
 
         lifecycleScope.launch {
@@ -64,6 +62,7 @@ class QuizListFragment : Fragment() {
 
         return view
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         val frameLayout = activity?.findViewById<FrameLayout>(R.id.fragment_container)

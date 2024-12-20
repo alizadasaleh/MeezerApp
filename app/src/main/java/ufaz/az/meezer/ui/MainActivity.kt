@@ -17,8 +17,6 @@
 package ufaz.az.meezer.ui
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.FragmentActivity
 import dagger.hilt.android.AndroidEntryPoint

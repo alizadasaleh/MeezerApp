@@ -8,15 +8,15 @@
         android:id="@+id/tvQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
         android:text="Question goes here"
-        android:textSize="18sp"
-        android:paddingBottom="16dp" />
+        android:textSize="18sp" />
 
     <LinearLayout
+        android:id="@+id/answerContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/answerContainer" />
+        android:orientation="vertical" />
 
     <Button
         android:id="@+id/btnNextQuestion"

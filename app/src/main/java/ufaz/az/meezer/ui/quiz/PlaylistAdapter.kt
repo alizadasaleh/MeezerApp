@@ -1,12 +1,12 @@
 package ufaz.az.meezer.ui.quiz
 
-import android.view.View
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ufaz.az.meezer.data.model.Playlist
 import ufaz.az.meezer.R
+import ufaz.az.meezer.data.model.Playlist
 
 class PlaylistAdapter(
     private val playlists: List<Playlist>,
@@ -21,7 +21,8 @@ class PlaylistAdapter(
 
     override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
         val playlist = playlists[position]
-        holder.playlistNameTextView.text = playlist.name  // Assuming 'name' is a property in Playlist.
+        holder.playlistNameTextView.text =
+            playlist.name  // Assuming 'name' is a property in Playlist.
         holder.itemView.setOnClickListener { onPlaylistClickListener(playlist) }
     }
 

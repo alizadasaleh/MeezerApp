@@ -3,8 +3,6 @@ package ufaz.az.meezer.ui.quiz
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
@@ -30,13 +28,15 @@ class AddQuizDialogFragment : DialogFragment() {
         val quizNameEditText: EditText = view.findViewById(R.id.edit_quiz_name)
         val randomCheckBox: CheckBox = view.findViewById(R.id.checkbox_random)
         val saveButton: Button = view.findViewById(R.id.button_save_quiz)
-        val playlistRecyclerView: RecyclerView = view.findViewById(R.id.playlist_recycler_view)  // Access the RecyclerView
+        val playlistRecyclerView: RecyclerView =
+            view.findViewById(R.id.playlist_recycler_view)  // Access the RecyclerView
 
 
         // Get playlists from database
         lifecycleScope.launch {
-            val playlists = AppDatabase.getInstance(requireContext()).playlistDao().getAllPlaylists().first()
-            setupPlaylistRecyclerView(playlists,playlistRecyclerView)
+            val playlists =
+                AppDatabase.getInstance(requireContext()).playlistDao().getAllPlaylists().first()
+            setupPlaylistRecyclerView(playlists, playlistRecyclerView)
         }
 
         val builder = AlertDialog.Builder(requireContext())
@@ -49,7 +49,8 @@ class AddQuizDialogFragment : DialogFragment() {
             if (selectedPlaylistId == 0L) {
                 // Handle case where no playlist is selected (optional: show a toast)
             } else {
-                val quiz = Quiz(name = name, playlistId = selectedPlaylistId, isRandomSelection = isRandom)
+                val quiz =
+                    Quiz(name = name, playlistId = selectedPlaylistId, isRandomSelection = isRandom)
                 lifecycleScope.launch {
                     AppDatabase.getInstance(requireContext()).quizDao().createQuiz(quiz)
                     dismiss()
