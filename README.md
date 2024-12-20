@@ -34,3 +34,19 @@ Keyboard Overlapping Navigation Bar: When the user taps on the search box, the k
 Error Handling: The app currently lacks comprehensive error handling. Network errors and other exceptions are not properly communicated to the user, which can lead to a poor user experience.
 Unit Tests for ViewModels: While some unit tests are in place, there is a need for more comprehensive testing of the ViewModels to ensure the business logic is thoroughly tested.
 Feel free to add the screenshots and make any necessary adjustments to the report.
+
+
+--ARCHITECTURE--
+The architecture of the Meezer app is designed to promote scalability, maintainability, and testability, adhering to best practices outlined in the Android documentation. By implementing a **Model-View-ViewModel (MVVM)** pattern, we effectively separate the user interface from the business logic. This separation of concerns ensures that our UI components remain lightweight and focused solely on rendering data and handling user interactions, while the ViewModels manage the application state and business logic. This approach aligns with the principles described in the Android architecture guidelines, which emphasize minimizing dependencies on UI components and managing data through persistent models to enhance robustness and testability [1].
+
+To further streamline our architecture, we utilized **Hilt** for dependency injection. Hilt simplifies the management of dependencies across various components of the app, allowing for cleaner code and easier testing. By defining clear boundaries between different parts of the application, we ensure that each component has a specific responsibility, which is crucial for maintaining a clean architecture [1]. 
+
+Our app also leverages **Room** for local data storage, providing an efficient abstraction layer over SQLite. This allows us to manage data persistently while ensuring that it remains accessible even when the app is not running. Coupled with **Retrofit** for network calls to the Deezer API, this architecture supports a seamless user experience by efficiently handling data retrieval and storage [1][2].
+
+Incorporating both **Jetpack Compose** and **RecyclerView** into our UI design allows us to utilize modern declarative programming alongside traditional UI components. This combination enhances readability and maintainability of our UI code while demonstrating versatility in our implementation choices. Overall, this architecture not only supports current functionality but also positions the Meezer app for future growth and feature enhancements.
+
+For more detailed insights into recommended app architectures and best practices, we referred to resources such as the official Android architecture documentation [1] and GitHub's architecture templates [2]. These resources have been instrumental in guiding our architectural decisions throughout the development process.
+
+Citations:
+[1] https://developer.android.com/topic/architecture
+[2] https://github.com/apache/flink-kubernetes-operator/pkgs/container/flink-kubernetes-operator/289154679?tag=c703255
