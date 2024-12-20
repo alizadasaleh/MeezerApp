@@ -22,7 +22,6 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,7 +41,11 @@ import ufaz.az.meezer.data.model.Playlist
 import ufaz.az.meezer.ui.playlist.PlaylistViewModel
 
 @Composable
-fun SearchScreen(navController: NavHostController, searchViewModel: SearchViewModel = hiltViewModel(), playlistViewModel: PlaylistViewModel = hiltViewModel()) {
+fun SearchScreen(
+    navController: NavHostController,
+    searchViewModel: SearchViewModel = hiltViewModel(),
+    playlistViewModel: PlaylistViewModel = hiltViewModel()
+) {
     val searchResults by searchViewModel.searchResults.collectAsState()
     val playlists by playlistViewModel.playlists.collectAsState(initial = emptyList())
     val viewModel: SearchViewModel = viewModel()
@@ -165,7 +168,10 @@ fun SearchResultItem(result: SearchResult, onClick: () -> Unit, onAddToPlaylist:
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = result.title, style = MaterialTheme.typography.titleMedium)
-            Text(text = "Artist: ${result.artist.name}", style = MaterialTheme.typography.bodyMedium)
+            Text(
+                text = "Artist: ${result.artist.name}",
+                style = MaterialTheme.typography.bodyMedium
+            )
             Text(text = "Album: ${result.album.title}", style = MaterialTheme.typography.bodySmall)
             result.release_date?.let {
                 Text(text = "Release Date: $it", style = MaterialTheme.typography.bodySmall)
