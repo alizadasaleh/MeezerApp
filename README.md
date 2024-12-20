@@ -1,4 +1,3 @@
-```markdown
 # Meezer App Technical Report
 
 ## App Summary
@@ -47,4 +46,4 @@ For more detailed insights into recommended app architectures and best practices
 - **UI Components**: Built using a combination of Jetpack Compose and RecyclerView, these components render the user interface and interact with the ViewModel. Notable examples include `SearchScreen` (using Jetpack Compose) for searching music tracks and `PlaylistScreen` (using RecyclerView) for displaying playlists.
 
 This structured approach ensures that the Meezer app not only provides a rich user experience but also maintains a robust architecture that can evolve with future enhancements. By integrating modern Android development practices with established patterns like MVVM, Room, Retrofit, Jetpack Compose, RecyclerView, Fragments, and Navigation Compose, we have created an application that is both powerful and user-friendly.
-```
+
