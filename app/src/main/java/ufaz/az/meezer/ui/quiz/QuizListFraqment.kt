@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ListView
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -27,11 +28,14 @@ class QuizListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_quiz_list, container, false)
         val listView: ListView = view.findViewById(R.id.list_view_quizzes)
         val buttonAddQuiz: Button = view.findViewById(R.id.button_add_quiz)
-
-        // Initialize QuizDao manually
+        val frameLayout = activity?.findViewById<FrameLayout>(R.id.fragment_container)
+        if (frameLayout != null) {
+            frameLayout.visibility = View.VISIBLE
+        }
         val appDatabase = AppDatabase.getInstance(requireContext()) // Add this method in AppDatabase
         quizDao = appDatabase.quizDao()
 
@@ -59,5 +63,12 @@ class QuizListFragment : Fragment() {
         }
 
         return view
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val frameLayout = activity?.findViewById<FrameLayout>(R.id.fragment_container)
+        if (frameLayout != null) {
+            frameLayout.visibility = View.GONE
+        }
     }
 }

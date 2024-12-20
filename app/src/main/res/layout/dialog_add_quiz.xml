@@ -11,16 +11,24 @@
         android:layout_height="wrap_content"
         android:hint="Quiz Name" />
 
-    <EditText
-        android:id="@+id/edit_playlist_id"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Playlist ID" />
+        android:layout_marginTop="8dp"
+        android:text="Select Playlist:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/playlist_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp" />
 
     <CheckBox
         android:id="@+id/checkbox_random"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Random Selection" />
 
     <Button
@@ -29,4 +37,5 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Save Quiz" />
+
 </LinearLayout>
